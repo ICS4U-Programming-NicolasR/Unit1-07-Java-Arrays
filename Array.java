@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -118,7 +119,7 @@ public final class Array {
 
     public static void main(final String[] args) {
         // repeated Strings to appease checkstyle
-        final String INPUT_FILE_NAME = "Unit1-06-Set.txt";
+        final String INPUT_FILE_NAME = "Unit1-07-set1.txt";
         // Try catch to try to create/edit a file
         try {
             // Create a new File object representing the file to be read
