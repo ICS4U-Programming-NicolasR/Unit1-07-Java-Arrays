@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -32,7 +33,7 @@ public final class Array {
      * @return MODE
      *
      */
-    public static ArrayList<Integer> modeCalc(int[] nums) {
+    public static List<Integer> modeCalc(int[] nums) {
         // Store some values in these variables
         int maxNumRep = 0;
         int numRep = -1;
@@ -118,43 +119,46 @@ public final class Array {
      */
 
     public static void main(final String[] args) {
-        // repeated Strings to appease checkstyle
-        final String INPUT_FILE_NAME = "Unit1-07-set1.txt";
+        // repeated Strings to appease check style
+        final String INPUT_FILE_NAME = "Unit1-07-set3.txt";
         // Try catch to try to create/edit a file
         try {
             // Create a new File object representing the file to be read
             // Input file
             final File FILE = new File(INPUT_FILE_NAME);
 
-            // Create a new Scanner object to read from the file
-            final Scanner SCANNER = new Scanner(FILE);
-
-            // Create the arrayList
-            final ArrayList<String> NUM_STR = new ArrayList<>();
-            // Read the file line by line using the Scanner object
-            while (SCANNER.hasNextLine()) {
-                final String LINE = SCANNER.nextLine();
-                NUM_STR.add(LINE);
+            try (// Create a new Scanner object to read from the file
+            Scanner SCANNER = new Scanner(FILE)) {
+                // Create the arrayList
+                final ArrayList<String> NUM_STR = new ArrayList<>();
+                // Read the file line by line using the Scanner object
+                while (SCANNER.hasNextLine()) {
+                    final String LINE = SCANNER.nextLine();
+                    NUM_STR.add(LINE);
+                }
+                // set arraylist to array
+                final int[] NUM_ARR = new int[NUM_STR.size()];
+                int counter = 0;
+                // convert the values to an int and add to array
+                for (String num : NUM_STR) {
+                    final int NUM_INT = Integer.parseInt(num);
+                    NUM_ARR[counter] = NUM_INT;
+                    counter++;
+                }
+                // sort the array
+                Arrays.sort(NUM_ARR);
+                // calculate the numbers
+                final List<Integer> MODE_ANS = modeCalc(NUM_ARR);
+                final float MED_ANS = medCalc(NUM_ARR);
+                final float MEAN_ANS = meanCalc(NUM_ARR);
+                // display the numbers
+                System.out.println("The mode is: " + MODE_ANS);
+                System.out.println("The mean is: " + MEAN_ANS);
+                System.out.println("The median is: " + MED_ANS);
+            } catch (NumberFormatException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-            // set arraylist to array
-            final int[] NUM_ARR = new int[NUM_STR.size()];
-            int counter = 0;
-            // convert the values to an int and add to array
-            for (String num : NUM_STR) {
-                final int NUM_INT = Integer.parseInt(num);
-                NUM_ARR[counter] = NUM_INT;
-                counter++;
-            }
-            // sort the array
-            Arrays.sort(NUM_ARR);
-            // calculate the numbers
-            final ArrayList<Integer> MODE_ANS = modeCalc(NUM_ARR);
-            final float MED_ANS = medCalc(NUM_ARR);
-            final float MEAN_ANS = meanCalc(NUM_ARR);
-            // display the numbers
-            System.out.println("The mode is: " + MODE_ANS);
-            System.out.println("The mean is: " + MEAN_ANS);
-            System.out.println("The median is: " + MED_ANS);
         } catch (FileNotFoundException error) {
             System.out.println("File not found!");
         }
